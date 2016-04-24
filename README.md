@@ -11,3 +11,6 @@ Made for MIT class 6.882 (Spring 2016), based on [Mixed Membership Stochastic Bl
 ```python mmsb.py -K [whatever K you want] -N [some number of items]```
 
 or see help using `python mmsb.py -h`
+
+### Example Visualization:
+![Example visualization](https://github.com/qlai/MMSBdemo/example.png)
