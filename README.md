@@ -13,4 +13,4 @@ Made for MIT class 6.882 (Spring 2016), based on [Mixed Membership Stochastic Bl
 or see help using `python mmsb.py -h`
 
 ### Example Visualization:
-![Example visualization](https://github.com/qlai/MMSBdemo/example.png)
+![Example visualization](https://raw.githubusercontent.com/qlai/MMSBdemo/master/example.png)
