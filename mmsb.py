@@ -53,7 +53,7 @@ class MMSB():
 		ax3 = plt.subplot(gs[:, 3])	
 		ax4 = plt.subplot(gs[0, 0])
 		ax1.set_title('Random B')
-		ax2.set_title('Generated Graph of Interactions, black is interaction')
+		ax2.set_title('Generated Graph of Interactions,\n black is interaction')
 		ax3.set_title('Generated Membership Vectors')
 		ax4.set_title('Random Alpha')
 		ax1.imshow(self._B, interpolation = 'nearest', cmap ="Greys")
