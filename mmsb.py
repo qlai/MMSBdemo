@@ -16,7 +16,7 @@ class MMSB():
 		self._K = K
 		self._N = N
 		if alpha != None:
-			self._alpha = alpha
+			self._alpha = n.repeat(alpha, self._K)
 		else:
 			self._alpha = n.random.random_sample(self._K)
 
@@ -31,7 +31,7 @@ class MMSB():
 
 	def drawMemberships(self):
 		self._pi = n.random.dirichlet(self._alpha, size = (self._N))
-		print "pi is now ", self._pi
+		self._pi = n.vstack(sorted(self._pi, key=n.argmax))
 		# print n.sum(self._pi, axis = 1)
 		# print n.sum(self._pi, axis = 0)
 
@@ -72,14 +72,16 @@ def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-K','--groups', help='number of groups',required=True)
 	parser.add_argument('-N','--items', help='number of items/people',required=True)
+	parser.add_argument('-a','--alpha', help='alpha', default = None, required=False)
 
 	args = parser.parse_args()
 
 
 	K = int(args.groups)
 	N = int(args.items)
+	alpha = float(args.alpha)
 
-	model = MMSB(K, N)
+	model = MMSB(K, N, alpha = alpha)
 	model.drawMemberships()
 	model.sampleInteractions()
 	model.display()
