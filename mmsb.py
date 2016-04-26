@@ -5,16 +5,17 @@ import argparse
 
 def randomB(N):
 	B = n.random.random_sample(size = (N, N))
-	print B
+	# print B
 	return (B + B.T)/2
 
 
 class MMSB():
-	def __init__(self, K, N, alpha = None, B = None):
+	def __init__(self, K, N, alpha = None, B = None, rho = 0.):
 		#K = number of groups
 		#N = number of items
 		self._K = K
 		self._N = N
+		self._rho = rho #sparsity parameter
 		if alpha != None:
 			self._alpha = n.repeat(alpha, self._K)
 		else:
@@ -42,7 +43,7 @@ class MMSB():
 				# print initiator
 				receiver = n.random.multinomial(1, self._pi[j])
 				# print receiver
-				self._model[i, j] = n.random.binomial(1, n.dot(n.dot(initiator.T, self._B), receiver))
+				self._model[i, j] = n.random.binomial(1, (1-self._rho))*n.random.binomial(1, n.dot(n.dot(initiator.T, self._B), receiver))
 		# print self._model
 
 	def display(self):
@@ -73,15 +74,19 @@ def main():
 	parser.add_argument('-K','--groups', help='number of groups',required=True)
 	parser.add_argument('-N','--items', help='number of items/people',required=True)
 	parser.add_argument('-a','--alpha', help='alpha', default = None, required=False)
+	parser.add_argument('-r','--rho', help='rho, sparsity parameter', default = 0., required=False)
 
 	args = parser.parse_args()
 
 
 	K = int(args.groups)
 	N = int(args.items)
-	alpha = float(args.alpha)
-
-	model = MMSB(K, N, alpha = alpha)
+	alpha = args.alpha
+	if alpha != None:
+		alpha = float(alpha)
+	rho = float(args.rho)
+	assert rho >= 0 and rho <= 1, "invalid rho, must be [0, 1]"
+	model = MMSB(K, N, alpha = alpha, rho = rho)
 	model.drawMemberships()
 	model.sampleInteractions()
 	model.display()
