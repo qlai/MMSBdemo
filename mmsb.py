@@ -43,7 +43,7 @@ class MMSB():
 				# print initiator
 				receiver = n.random.multinomial(1, self._pi[j])
 				# print receiver
-				self._model[i, j] = n.random.binomial(1, (1-self._rho))*n.random.binomial(1, n.dot(n.dot(initiator.T, self._B), receiver))
+				self._model[i, j] = n.random.binomial(1, (1-self._rho)*n.dot(n.dot(initiator.T, self._B), receiver))
 		# print self._model
 
 	def display(self):
